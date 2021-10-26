@@ -37,9 +37,9 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="pychee.pychee.LycheeAPISession">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pychee.pychee.</span></span><span class="sig-name descname"><span class="pre">LycheeAPISession</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix_url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pychee.pychee.LycheeAPISession" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper around Session to set base API URL and
-throw exception if request needs auth and user
-is not logged in.</p>
+<dd><p>Lychee API Session Handler.</p>
+<p>Wrapper around Session to set base API URL and throw exception if request
+needs auth and user is not logged in.</p>
 <p class="rubric">Methods</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -96,7 +96,7 @@ is not logged in.</p>
 <td><p>This method re-evaluates the proxy configuration by considering the environment variables.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pychee.pychee.LycheeAPISession.request" title="pychee.pychee.LycheeAPISession.request"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request</span></code></a>(method, url, *args, **kwargs)</p></td>
-<td><p>Constructs a <code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code>, prepares it and sends it.</p></td>
+<td><p>Make an HTTP request with the configured session.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_redirects</span></code>(resp, req[, stream, ...])</p></td>
 <td><p>Receives a Response.</p></td>
@@ -112,51 +112,7 @@ is not logged in.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pychee.pychee.LycheeAPISession.request">
 <span class="sig-name descname"><span class="pre">request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pychee.pychee.LycheeAPISession.request" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs a <code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code>, prepares it and sends it.
-Returns <code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code> object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>method</strong> – method for the new <code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code> object.</p></li>
-<li><p><strong>url</strong> – URL for the new <code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code> object.</p></li>
-<li><p><strong>params</strong> – (optional) Dictionary or bytes to be sent in the query
-string for the <code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code>.</p></li>
-<li><p><strong>data</strong> – (optional) Dictionary, list of tuples, bytes, or file-like
-object to send in the body of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code>.</p></li>
-<li><p><strong>json</strong> – (optional) json to send in the body of the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code>.</p></li>
-<li><p><strong>headers</strong> – (optional) Dictionary of HTTP Headers to send with the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code>.</p></li>
-<li><p><strong>cookies</strong> – (optional) Dict or CookieJar object to send with the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code>.</p></li>
-<li><p><strong>files</strong> – (optional) Dictionary of <code class="docutils literal notranslate"><span class="pre">'filename':</span> <span class="pre">file-like-objects</span></code>
-for multipart encoding upload.</p></li>
-<li><p><strong>auth</strong> – (optional) Auth tuple or callable to enable
-Basic/Digest/Custom HTTP Auth.</p></li>
-<li><p><strong>timeout</strong> (<em>float</em><em> or </em><em>tuple</em>) – (optional) How long to wait for the server to send
-data before giving up, as a float, or a <span class="xref std std-ref">(connect timeout,
-read timeout)</span> tuple.</p></li>
-<li><p><strong>allow_redirects</strong> (<em>bool</em>) – (optional) Set to True by default.</p></li>
-<li><p><strong>proxies</strong> – (optional) Dictionary mapping protocol or protocol and
-hostname to the URL of the proxy.</p></li>
-<li><p><strong>stream</strong> – (optional) whether to immediately download the response
-content. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>verify</strong> – (optional) Either a boolean, in which case it controls whether we verify
-the server’s TLS certificate, or a string, in which case it must be a path
-to a CA bundle to use. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>. When set to
-<code class="docutils literal notranslate"><span class="pre">False</span></code>, requests will accept any TLS certificate presented by
-the server, and will ignore hostname mismatches and/or expired
-certificates, which will make your application vulnerable to
-man-in-the-middle (MitM) attacks. Setting verify to <code class="docutils literal notranslate"><span class="pre">False</span></code>
-may be useful during local development or testing.</p></li>
-<li><p><strong>cert</strong> – (optional) if String, path to ssl client cert file (.pem).
-If Tuple, (‘cert’, ‘key’) pair.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>requests.Response</p>
-</dd>
-</dl>
+<dd><p>Make an HTTP request with the configured session.</p>
 </dd></dl>
 
 </dd></dl>
@@ -164,7 +120,10 @@ If Tuple, (‘cert’, ‘key’) pair.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="pychee.pychee.LycheeClient">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pychee.pychee.</span></span><span class="sig-name descname"><span class="pre">LycheeClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pychee.pychee.LycheeClient" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Methods</p>
+<dd><p>Lychee API Client.</p>
+<p>The primary [Lychee API](<a class="reference external" href="https://lycheeorg.github.io/docs/api.html">https://lycheeorg.github.io/docs/api.html</a>) client
+to interact with the specified Lychee server.</p>
+<p class="rubric">Methods</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -178,19 +137,25 @@ If Tuple, (‘cert’, ‘key’) pair.</p></li>
 <td><p>Delete the albums and all pictures in the album.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pychee.pychee.LycheeClient.get_album" title="pychee.pychee.LycheeClient.get_album"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_album</span></code></a>(album_id)</p></td>
-<td><p>Provided an albumID, returns the album.</p></td>
+<td><p>Get a Specific Album's Information.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pychee.pychee.LycheeClient.get_albums" title="pychee.pychee.LycheeClient.get_albums"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_albums</span></code></a>()</p></td>
-<td><p>Returns an array of albums or false on failure.</p></td>
+<td><p>Get List of Available Albums in Lychee.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pychee.pychee.LycheeClient.get_albums_archive" title="pychee.pychee.LycheeClient.get_albums_archive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_albums_archive</span></code></a>(album_ids)</p></td>
-<td><p>Returns a ZIP file of the pictures of the albums and their subalbums.</p></td>
+<td><p>Get a ZIP file of the pictures of the albums and their subalbums.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pychee.pychee.LycheeClient.get_albums_position_data" title="pychee.pychee.LycheeClient.get_albums_position_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_albums_position_data</span></code></a>()</p></td>
-<td><p>Provided an albumID, returns the album with only map related data.</p></td>
+<td><p>Get List of Available Album Data.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pychee.pychee.LycheeClient.get_public_album" title="pychee.pychee.LycheeClient.get_public_album"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_public_album</span></code></a>(album_id[, password])</p></td>
-<td><p>Provided the albumID and passwords, return whether the album can be accessed or not.</p></td>
+<td><p>Get Public Album Information.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pychee.pychee.LycheeClient.login" title="pychee.pychee.LycheeClient.login"><code class="xref py py-obj docutils literal notranslate"><span class="pre">login</span></code></a>(username, password)</p></td>
+<td><p>Log in to Lychee server.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pychee.pychee.LycheeClient.logout" title="pychee.pychee.LycheeClient.logout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logout</span></code></a>()</p></td>
+<td><p>Log out from Lychee server.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pychee.pychee.LycheeClient.merge_albums" title="pychee.pychee.LycheeClient.merge_albums"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_albums</span></code></a>(dest_id, source_ids)</p></td>
 <td><p>Merge albums into one.</p></td>
@@ -212,20 +177,6 @@ If Tuple, (‘cert’, ‘key’) pair.</p></li>
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>login</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>logout</strong></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="pychee.pychee.LycheeClient.add_album">
 <span class="sig-name descname"><span class="pre">add_album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'0'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pychee.pychee.LycheeClient.add_album" title="Permalink to this definition">¶</a></dt>
@@ -242,19 +193,21 @@ If Tuple, (‘cert’, ‘key’) pair.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="pychee.pychee.LycheeClient.get_album">
 <span class="sig-name descname"><span class="pre">get_album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">album_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pychee.pychee.LycheeClient.get_album" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provided an albumID, returns the album.</p>
+<dd><p>Get a Specific Album’s Information.</p>
+<p>Provided an albumID, returns the album.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pychee.pychee.LycheeClient.get_albums">
 <span class="sig-name descname"><span class="pre">get_albums</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pychee.pychee.LycheeClient.get_albums" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an array of albums or false on failure.</p>
+<dd><p>Get List of Available Albums in Lychee.</p>
+<p>Returns an array of albums or false on failure.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pychee.pychee.LycheeClient.get_albums_archive">
 <span class="sig-name descname"><span class="pre">get_albums_archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">album_ids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#pychee.pychee.LycheeClient.get_albums_archive" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a ZIP file of the pictures of the albums and their subalbums.</p>
+<dd><p>Get a ZIP file of the pictures of the albums and their subalbums.</p>
 <p>Archive is returned as bytes, you can open a file
 with wb mode and write to it.</p>
 </dd></dl>
@@ -262,15 +215,29 @@ with wb mode and write to it.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pychee.pychee.LycheeClient.get_albums_position_data">
 <span class="sig-name descname"><span class="pre">get_albums_position_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pychee.pychee.LycheeClient.get_albums_position_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provided an albumID, returns the album with only map related data.</p>
+<dd><p>Get List of Available Album Data.</p>
+<p>Returns the album with only map related data.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pychee.pychee.LycheeClient.get_public_album">
 <span class="sig-name descname"><span class="pre">get_public_album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">album_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'rand'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pychee.pychee.LycheeClient.get_public_album" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provided the albumID and passwords, return
-whether the album can be accessed or not.</p>
-<p>The API won’t work if password if empty, even if no password.</p>
+<dd><p>Get Public Album Information.</p>
+<p>Provided the albumID and passwords, return whether the album can be
+accessed or not. The API won’t work if password if empty, even if no
+password.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pychee.pychee.LycheeClient.login">
+<span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pychee.pychee.LycheeClient.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log in to Lychee server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pychee.pychee.LycheeClient.logout">
+<span class="sig-name descname"><span class="pre">logout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pychee.pychee.LycheeClient.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log out from Lychee server.</p>
 </dd></dl>
 
 <dl class="py method">
