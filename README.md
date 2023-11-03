@@ -65,7 +65,7 @@ client.set_photo_license(photo_id, 'CC0')
 
 # Download an archive of the created album
 output_path = '/tmp/photos.zip'
-with(open(output_path, 'wb')) as f:
+with open(output_path, 'wb') as f:
      f.write(client.get_albums_archive([album_id]))
 
 # Logout
